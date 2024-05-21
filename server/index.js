@@ -7,7 +7,7 @@ const cors = require('cors');
 
 const corsOptions = {
   // removing cors error for browers
-  origin: 'https://automita-68q2.vercel.app',
+  origin: 'https://automita-68q2.vercel.app/',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true, // Allow cookies to be sent from the frontend
 };
