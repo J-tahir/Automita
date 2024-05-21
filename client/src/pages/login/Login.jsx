@@ -63,7 +63,7 @@ const Login = () => {
   };
 
   const HandleSessions = async (storedToken) => {
-    const urlme = 'http://0/api/users/me';
+    const urlme = 'https://automita-backend.vercel.app/api/users/me';
     try {
       let id = null;
       if (storedToken) {
@@ -154,7 +154,7 @@ const Login = () => {
         <section className="login-section">
           <div className="container">
             <form className="form">
-              <img src={logo} className="logo" />
+              <img src={logo} className="logo" alt='Logo' width={auto} height={auto}/>
               <p className="alert">{auth}</p>
               {isLoading && <Loading />}
               <div className="form-row">
