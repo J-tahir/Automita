@@ -12,8 +12,8 @@ const useUser = () => {
 };
 
 const General = () => {
-  // const name = "Umar Rasheed";
-  // const email = "201271@students.au.edu.pk";
+  // const name = "Junaid Tahir";
+  // const email = "201269@students.au.edu.pk";
   // const role = "Student";
   // const department = "Creative Technologies";
   // const organization = "Air University";

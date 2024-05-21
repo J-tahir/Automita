@@ -1,41 +1,41 @@
-import Tabs from "../../components/Tabs/Tabs";
-import "./Profile.css";
-import bg from "../../assets/images/profile.svg";
-import { useEffect, useState } from "react";
-import { FaEye, FaEyeSlash, FaFile } from "react-icons/fa";
-import PasswordStrengthBar from "react-password-strength-bar";
-import { Link } from "react-router-dom";
-import { profileTabs } from "../../data/TabsData";
-import UserHeading from "../../components/UserHeading";
-import { useContext } from "react";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { UserContext } from "../../hooks/LoggedUserHook";
+import Tabs from '../../components/Tabs/Tabs';
+import './Profile.css';
+import bg from '../../assets/images/profile.svg';
+import { useEffect, useState } from 'react';
+import { FaEye, FaEyeSlash, FaFile } from 'react-icons/fa';
+import PasswordStrengthBar from 'react-password-strength-bar';
+import { Link } from 'react-router-dom';
+import { profileTabs } from '../../data/TabsData';
+import UserHeading from '../../components/UserHeading';
+import { useContext } from 'react';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { UserContext } from '../../hooks/LoggedUserHook';
 
 const useUser = () => {
   return useContext(UserContext);
 };
 
 const Security = () => {
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [type, setType] = useState("password");
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [type, setType] = useState('password');
   const [icon, setIcon] = useState(FaEye);
-  const [passwordState, setPasswordState] = useState("Show Password");
+  const [passwordState, setPasswordState] = useState('Show Password');
   const [showPasswordError, setShowPasswordError] = useState(false); // password confirmation error
   const [isConfirmPasswordOkay, setConfirmPasswordOkay] = useState(true); // we assume that password is right in confirm field\
-  const [passwordAlertClass, setPasswordAlertClass] = useState("is-valid");
+  const [passwordAlertClass, setPasswordAlertClass] = useState('is-valid');
   const { user } = useUser();
   useEffect(() => {
     if (!isConfirmPasswordOkay) {
       if (newPassword === confirmPassword) {
         setShowPasswordError(false);
-        setPasswordAlertClass("is-valid");
+        setPasswordAlertClass('is-valid');
       } else {
         setShowPasswordError(true);
-        setPasswordAlertClass("pw-alert");
+        setPasswordAlertClass('pw-alert');
       }
     }
   }, [confirmPassword][newPassword]);
@@ -46,19 +46,19 @@ const Security = () => {
   };
 
   const handleToggle = () => {
-    if (type === "password") {
+    if (type === 'password') {
       setIcon(FaEyeSlash);
-      setType("text");
-      setPasswordState("Hide Password");
+      setType('text');
+      setPasswordState('Hide Password');
     } else {
       setIcon(FaEye);
-      setType("password");
-      setPasswordState("Show Password");
+      setType('password');
+      setPasswordState('Show Password');
     }
   };
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
-    const url = "http://localhost:5000/api/users/change/password";
+    const url = 'http://0/api/users/change/password';
     if (newPassword == confirmPassword) {
       try {
         const response = await axios.patch(url, {
@@ -67,20 +67,20 @@ const Security = () => {
           newPassword: newPassword,
         });
         if (response) {
-          toast.success("Password Changed Successfully");
-          setCurrentPassword("");
-          setNewPassword("");
-          setConfirmPassword("");
+          toast.success('Password Changed Successfully');
+          setCurrentPassword('');
+          setNewPassword('');
+          setConfirmPassword('');
         }
       } catch (err) {
         console.log(err.response.data);
-        toast.error("Request Failed");
-        setCurrentPassword("");
-        setNewPassword("");
-        setConfirmPassword("");
+        toast.error('Request Failed');
+        setCurrentPassword('');
+        setNewPassword('');
+        setConfirmPassword('');
       }
     } else {
-      toast.error("Request Failed");
+      toast.error('Request Failed');
     }
   };
 
@@ -140,7 +140,7 @@ const Security = () => {
             />
           </div>
           <div className="btn-container">
-            <Link to={"/profile"}>
+            <Link to={'/profile'}>
               <button className="cancel-btn">Cancel</button>
             </Link>
             <div>

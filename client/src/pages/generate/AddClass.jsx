@@ -38,7 +38,7 @@ const AddClass = () => {
   // Backend request to generate timetable
   useEffect(() => {
     if (open && !response) {
-      const url = "http://localhost:5000/api/timetables/generate/201271@students.au.edu.pk";
+      const url = "https://automita-backend.vercel.app/api/timetables/generate/201269@students.au.edu.pk";
       axios.get(url)
         .then(response => {
           if (response.status === 200) {

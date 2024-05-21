@@ -1,10 +1,10 @@
-import "./GenerateTable.css";
-import { FaTrash } from "react-icons/fa";
-import { useContext, useEffect, useState } from "react";
-import { TimetableContext } from "../../hooks/timetableDataHook";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import './GenerateTable.css';
+import { FaTrash } from 'react-icons/fa';
+import { useContext, useEffect, useState } from 'react';
+import { TimetableContext } from '../../hooks/timetableDataHook';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const useTimeTables = () => {
   return useContext(TimetableContext);
 };
@@ -39,67 +39,67 @@ const GenerateTable = ({ parentName }) => {
     room_addition,
     set_room_addition,
   } = useTimeTables();
-  const storedToken = sessionStorage.getItem("userToken");
+  const storedToken = sessionStorage.getItem('userToken');
   const [selectedItemId, setSelectedItemId] = useState(null);
   // function responsible for opening and closing delete
   const toggleDelete = (parent, itemid) => {
     setDelete(!isDelete);
-    if (parent === "addClass") {
+    if (parent === 'addClass') {
       setSelectedItemId(null);
       setSelectedItemId({ parent: parent, itemid: itemid });
-    } else if (parent === "addCourse") {
+    } else if (parent === 'addCourse') {
       setSelectedItemId(null);
       setSelectedItemId({ parent: parent, itemid: itemid });
-    } else if (parent === "addTeacher") {
+    } else if (parent === 'addTeacher') {
       setSelectedItemId(null);
       setSelectedItemId({ parent: parent, itemid: itemid });
-    } else if (parent === "addRoom") {
+    } else if (parent === 'addRoom') {
       setSelectedItemId(null);
       setSelectedItemId({ parent: parent, itemid: itemid });
-    } else if (parent === "timeSlot") {
+    } else if (parent === 'timeSlot') {
       setSelectedItemId(null);
-      setSelectedItemId({ parent: parent, itemid: "none" });
+      setSelectedItemId({ parent: parent, itemid: 'none' });
     } else {
       setSelectedItemId(null);
     }
   };
   const fetchdata = async (parentName) => {
-    if (parentName === "addClass") {
-      const url = "http://localhost:5000/api/timetables/class/get";
+    if (parentName === 'addClass') {
+      const url = 'http://0/api/timetables/class/get';
       const data = await getuserTimeTable(url, storedToken);
       await set_classes_addition(data);
-    } else if (parentName === "addCourse") {
+    } else if (parentName === 'addCourse') {
       {
-        const url = "http://localhost:5000/api/timetables/course/get";
+        const url = 'https://automita-backend.vercel.app/api/timetables/course/get';
         const data = await getuserTimeTable(url, storedToken);
         await set_course_addition(data);
       }
 
       {
-        const url = "http://localhost:5000/api/timetables/class/get";
+        const url = 'https://automita-backend.vercel.app/api/timetables/class/get';
         const data = await getuserTimeTable(url, storedToken);
         await set_classes_addition(data);
       }
-    } else if (parentName === "addTeacher") {
+    } else if (parentName === 'addTeacher') {
       {
-        const url = "http://localhost:5000/api/timetables/teacher/get";
+        const url = 'https://automita-backend.vercel.app/api/timetables/teacher/get';
         const data = await getuserTimeTable(url, storedToken);
         await set_teacher_addition(data);
       }
 
       {
-        const url = "http://localhost:5000/api/timetables/course/get";
+        const url = 'https://automita-backend.vercel.app/api/timetables/course/get';
         const data = await getuserTimeTable(url, storedToken);
         await set_course_addition(data);
       }
 
       {
-        const url = "http://localhost:5000/api/timetables/class/get";
+        const url = 'https://automita-backend.vercel.app/api/timetables/class/get';
         const data = await getuserTimeTable(url, storedToken);
         await set_classes_addition(data);
       }
-    } else if (parentName === "addRoom") {
-      const url = "http://localhost:5000/api/timetables/room/get";
+    } else if (parentName === 'addRoom') {
+      const url = 'https://automita-backend.vercel.app/api/timetables/room/get';
       const data = await getuserTimeTable(url, storedToken);
       if (data) {
         await set_room_addition(data);
@@ -111,97 +111,97 @@ const GenerateTable = ({ parentName }) => {
   }, []);
   const handleDeleteItem = async () => {
     setDelete(!isDelete);
-    if (selectedItemId.parent === "addClass") {
-      const url = "http://localhost:5000/api/timetables/class/delete";
+    if (selectedItemId.parent === 'addClass') {
+      const url = 'https://automita-backend.vercel.app/api/timetables/class/delete';
       try {
         const response = await axios.delete(url, {
           data: { id: selectedItemId.itemid },
         });
 
         if (response.status === 204) {
-          toast.success("Row Delete Success");
+          toast.success('Row Delete Success');
           setTimeout(() => {
             window.location.reload(false);
           }, 500);
         } else if (response.status === 404) {
-          toast.error("Item not found");
+          toast.error('Item not found');
         } else {
-          toast.error("Error deleting item");
+          toast.error('Error deleting item');
         }
       } catch (error) {
-        console.error("Error deleting item:", error.message);
+        console.error('Error deleting item:', error.message);
         // Handle network errors or other unexpected errors
       }
-    } else if (selectedItemId.parent === "addCourse") {
-      const url = "http://localhost:5000/api/timetables/course/delete";
+    } else if (selectedItemId.parent === 'addCourse') {
+      const url = 'https://automita-backend.vercel.app/api/timetables/course/delete';
       try {
         const response = await axios.delete(url, {
           data: { id: selectedItemId.itemid },
         });
 
         if (response.status === 204) {
-          toast.success("Row Delete Success");
+          toast.success('Row Delete Success');
           setTimeout(() => {
             window.location.reload(false);
           }, 500);
         } else if (response.status === 404) {
-          toast.error("Item not found");
+          toast.error('Item not found');
         } else {
-          toast.error("Error deleting item");
+          toast.error('Error deleting item');
         }
       } catch (error) {
-        console.error("Error deleting item:", error.message);
+        console.error('Error deleting item:', error.message);
         // Handle network errors or other unexpected errors
       }
-    } else if (selectedItemId.parent === "addTeacher") {
-      const url = "http://localhost:5000/api/timetables/teacher/delete";
+    } else if (selectedItemId.parent === 'addTeacher') {
+      const url = 'https://automita-backend.vercel.app/api/timetables/teacher/delete';
       try {
         const response = await axios.delete(url, {
           data: { id: selectedItemId.itemid },
         });
 
         if (response.status === 204) {
-          toast.success("Row Delete Success");
+          toast.success('Row Delete Success');
           setTimeout(() => {
             window.location.reload(false);
           }, 500);
         } else if (response.status === 404) {
-          toast.error("Item not found");
+          toast.error('Item not found');
         } else {
-          toast.error("Error deleting item");
+          toast.error('Error deleting item');
         }
       } catch (error) {
-        console.error("Error deleting item:", error.message);
+        console.error('Error deleting item:', error.message);
       }
-    } else if (selectedItemId.parent === "addRoom") {
-      const url = "http://localhost:5000/api/timetables/room/delete";
+    } else if (selectedItemId.parent === 'addRoom') {
+      const url = 'https://automita-backend.vercel.app/api/timetables/room/delete';
       try {
         const response = await axios.delete(url, {
           data: { id: selectedItemId.itemid },
         });
 
         if (response.status === 204) {
-          toast.success("Row Delete Success");
+          toast.success('Row Delete Success');
           setTimeout(() => {
             window.location.reload(false);
           }, 500);
         } else if (response.status === 404) {
-          toast.error("Item not found");
+          toast.error('Item not found');
         } else {
-          toast.error("Error deleting item");
+          toast.error('Error deleting item');
         }
       } catch (error) {
-        console.error("Error deleting item:", error.message);
+        console.error('Error deleting item:', error.message);
         // Handle network errors or other unexpected errors
       }
-    } else if (selectedItemId.parent === "timeSlot") {
-      console.log("TimeSlot Deleted");
+    } else if (selectedItemId.parent === 'timeSlot') {
+      console.log('TimeSlot Deleted');
     }
   };
 
   return (
     <>
-      {parentName == "addClass" && (
+      {parentName == 'addClass' && (
         <div className="table">
           <table>
             <tr>
@@ -219,7 +219,7 @@ const GenerateTable = ({ parentName }) => {
                 <td>{classes.section}</td>
                 <td
                   className="del"
-                  onClick={() => toggleDelete("addClass", classes._id)}
+                  onClick={() => toggleDelete('addClass', classes._id)}
                 >
                   <FaTrash />
                 </td>
@@ -229,7 +229,7 @@ const GenerateTable = ({ parentName }) => {
         </div>
       )}
 
-      {parentName == "addCourse" && (
+      {parentName == 'addCourse' && (
         <div className="table">
           <table>
             <tr>
@@ -253,7 +253,7 @@ const GenerateTable = ({ parentName }) => {
                 </td>
                 <td
                   className="del"
-                  onClick={() => toggleDelete("addCourse", courses._id)}
+                  onClick={() => toggleDelete('addCourse', courses._id)}
                 >
                   <FaTrash />
                 </td>
@@ -263,7 +263,7 @@ const GenerateTable = ({ parentName }) => {
         </div>
       )}
 
-      {parentName == "addTeacher" && (
+      {parentName == 'addTeacher' && (
         <div className="table">
           <table>
             <tr>
@@ -288,12 +288,12 @@ const GenerateTable = ({ parentName }) => {
                     teachers.course_assigned.code &&
                     teachers.course_assigned.name
                       ? `${teachers.course_assigned.code} ${teachers.course_assigned.name}`
-                      : ""}
+                      : ''}
                   </div>
                 </td>
                 <td
                   className="del"
-                  onClick={() => toggleDelete("addTeacher", teachers._id)}
+                  onClick={() => toggleDelete('addTeacher', teachers._id)}
                 >
                   <FaTrash />
                 </td>
@@ -303,7 +303,7 @@ const GenerateTable = ({ parentName }) => {
         </div>
       )}
 
-      {parentName == "addRoom" && (
+      {parentName == 'addRoom' && (
         <div className="table">
           <table>
             <tr>
@@ -315,7 +315,7 @@ const GenerateTable = ({ parentName }) => {
                 <td>{rooms.rooms}</td>
                 <td
                   className="del"
-                  onClick={() => toggleDelete("addRoom", rooms._id)}
+                  onClick={() => toggleDelete('addRoom', rooms._id)}
                 >
                   <FaTrash />
                 </td>
@@ -324,7 +324,7 @@ const GenerateTable = ({ parentName }) => {
           </table>
         </div>
       )}
-      {parentName == "timeSlot" && (
+      {parentName == 'timeSlot' && (
         <div className="table">
           <table>
             <tr>
@@ -354,7 +354,7 @@ const GenerateTable = ({ parentName }) => {
               <h3>Are you sure you want to delete?</h3>
             </div>
             <div className="add-form-row">
-              <button onClick={() => toggleDelete("none", "no_id")}>No</button>
+              <button onClick={() => toggleDelete('none', 'no_id')}>No</button>
               <button type="submit" onClick={handleDeleteItem}>
                 Yes
               </button>

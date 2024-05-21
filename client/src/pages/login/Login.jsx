@@ -1,13 +1,13 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import logo from "../../assets/png/logo-no-background.png";
-import Loading from "../../components/Loading";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import "./Login.css";
-import axios from "axios";
-import { useContext } from "react";
-import { AuthContext } from "../../hooks/isLoggedInHook";
-import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../hooks/LoggedUserHook";
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import logo from '../../assets/png/logo-no-background.png';
+import Loading from '../../components/Loading';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import './Login.css';
+import axios from 'axios';
+import { useContext } from 'react';
+import { AuthContext } from '../../hooks/isLoggedInHook';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../hooks/LoggedUserHook';
 
 const useAuth = () => {
   return useContext(AuthContext);
@@ -17,44 +17,44 @@ const useUser = () => {
 };
 const Login = () => {
   let storedToken = null;
-  const [auth, setAuth] = useState("Authentication Required");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [auth, setAuth] = useState('Authentication Required');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
   const [notRender, setNotRender] = useState(false);
   const { setuser } = useUser();
   const emailInputRef = useRef(null);
-  const [type, setType] = useState("password");
+  const [type, setType] = useState('password');
   const [icon, setIcon] = useState(FaEye);
   const { login, logout } = useAuth();
   const navigate = useNavigate();
 
   const navigateToProfile = () => {
-    navigate("/profile");
+    navigate('/profile');
   };
 
   const handleClick = (e) => {
     e.preventDefault();
     setLoading(true);
-    if (email == "" || password == "") {
+    if (email == '' || password == '') {
       setTimeout(() => {
         setLoading(false);
-        setAuth("Empty Input Fields");
+        setAuth('Empty Input Fields');
       }, 700);
       return;
     }
 
-    if (!email.includes("@")) {
+    if (!email.includes('@')) {
       setTimeout(() => {
         setLoading(false);
-        setAuth("Email invalid");
+        setAuth('Email invalid');
       }, 700);
       return;
     }
-    if (email.includes("@") && email.endsWith("@")) {
+    if (email.includes('@') && email.endsWith('@')) {
       setTimeout(() => {
         setLoading(false);
-        setAuth("Email invalid");
+        setAuth('Email invalid');
       }, 700);
       return;
     }
@@ -63,7 +63,7 @@ const Login = () => {
   };
 
   const HandleSessions = async (storedToken) => {
-    const urlme = "http://localhost:5000/api/users/me";
+    const urlme = 'http://0/api/users/me';
     try {
       let id = null;
       if (storedToken) {
@@ -78,7 +78,7 @@ const Login = () => {
     }
   };
   const fetchData = async () => {
-    storedToken = sessionStorage.getItem("userToken");
+    storedToken = sessionStorage.getItem('userToken');
     if (storedToken) {
       setNotRender(true);
       const session = await HandleSessions(storedToken);
@@ -91,7 +91,7 @@ const Login = () => {
     }
   };
   const loginUser = async () => {
-    const urlLogin = "http://localhost:5000/api/users/login";
+    const urlLogin = 'https://automita-backend.vercel.app/api/users/login';
     try {
       const response = await axios.post(urlLogin, {
         email: email,
@@ -99,11 +99,11 @@ const Login = () => {
       });
       const data = response.data;
       if (data) {
-        sessionStorage.setItem("userToken", JSON.stringify(data.token)); //Storing data in sessions
-        setAuth("Verifying...");
+        sessionStorage.setItem('userToken', JSON.stringify(data.token)); //Storing data in sessions
+        setAuth('Verifying...');
         setTimeout(() => {
           setLoading(false);
-          setAuth("Login Successful");
+          setAuth('Login Successful');
           // console.log(user);
         }, 1000);
         resetFields();
@@ -114,27 +114,27 @@ const Login = () => {
       }
     } catch (err) {
       // console.log(err.response.data);
-      setAuth("Verifying...");
+      setAuth('Verifying...');
       setTimeout(() => {
         setLoading(false);
-        setAuth("Authentication Failed");
+        setAuth('Authentication Failed');
       }, 1000);
       resetFields();
     }
   };
 
   const resetFields = () => {
-    setEmail("");
-    setPassword("");
+    setEmail('');
+    setPassword('');
   };
 
   const handleToggle = () => {
-    if (type === "password") {
+    if (type === 'password') {
       setIcon(FaEyeSlash);
-      setType("text");
+      setType('text');
     } else {
       setIcon(FaEye);
-      setType("password");
+      setType('password');
     }
   };
   useLayoutEffect(() => {

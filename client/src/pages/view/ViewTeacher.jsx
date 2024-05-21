@@ -18,7 +18,7 @@ const ViewTeacher = () => {
   useEffect(() => {
     if (id) {
       if (location.pathname.includes("/view/room")) {
-        url = `http://localhost:5000/api/timetables/timetable-get/rooms/201271@students.au.edu.pk/${id}`;
+        url = `https://automita-backend.vercel.app/api/timetables/timetable-get/rooms/201269@students.au.edu.pk/${id}`;
         axios
           .get(url) // Initiates the GET request
           .then((response) => {
@@ -30,7 +30,7 @@ const ViewTeacher = () => {
 
       }
       else if (location.pathname.includes("/view/class")) {
-        url = `http://localhost:5000/api/timetables/timetable-get/classes/201271@students.au.edu.pk/${id}`;
+        url = `https://automita-backend.vercel.app/api/timetables/timetable-get/classes/201269@students.au.edu.pk/${id}`;
         axios
           .get(url) // Initiates the GET request
           .then((response) => {
@@ -41,7 +41,7 @@ const ViewTeacher = () => {
           }); // Correctly closes the 'catch' block
       }
       else if (location.pathname.includes("/view/teacher")) {
-        url = `http://localhost:5000/api/timetables/timetable-get/teachers/201271@students.au.edu.pk/${id}`;
+        url = `https://automita-backend.vercel.app/api/timetables/timetable-get/teachers/201269@students.au.edu.pk/${id}`;
         axios
           .get(url) // Initiates the GET request
           .then((response) => {

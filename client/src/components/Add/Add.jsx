@@ -1,18 +1,18 @@
-import { useState } from "react";
-import { useContext } from "react";
-import Select from "react-select";
-import "./Add.css";
-import { FaPlus } from "react-icons/fa";
-import GenerateTable from "../Generate/GenerateTable";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { TimetableContext } from "../../hooks/timetableDataHook";
+import { useState } from 'react';
+import { useContext } from 'react';
+import Select from 'react-select';
+import './Add.css';
+import { FaPlus } from 'react-icons/fa';
+import GenerateTable from '../Generate/GenerateTable';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { TimetableContext } from '../../hooks/timetableDataHook';
 const useTimeTables = () => {
   return useContext(TimetableContext);
 };
 const getClassForCourse = async (id) => {
-  const url = "http://localhost:5000/api/timetables/course/get_single";
+  const url = 'http://0/api/timetables/course/get_single';
   try {
     const res = await axios.post(url, { id: id });
     if (res.data) return res.data;
@@ -26,28 +26,27 @@ const Add = ({ parentName }) => {
   // initially popup is not open
   const [modal, setModal] = useState(false);
   const [isSearchable, setIsSearchable] = useState(false);
-  const [programName, setProgramName] = useState("");
-  const [session, setSession] = useState("Fall");
-  const [semester, setSemester] = useState("1");
-  const [section, setSection] = useState("");
+  const [programName, setProgramName] = useState('');
+  const [session, setSession] = useState('Fall');
+  const [semester, setSemester] = useState('1');
+  const [section, setSection] = useState('');
   const { classes_addition, course_addition } = useTimeTables();
-  const [courseCode, setCourseCode] = useState("");
-  const [courseName, setCourseName] = useState("");
-  const [creditHours, setCreditHours] = useState("");
+  const [courseCode, setCourseCode] = useState('');
+  const [courseName, setCourseName] = useState('');
+  const [creditHours, setCreditHours] = useState('');
   const [selectedClasses, setSelectedClasses] = useState([]);
-  const [TeacherName, setTeacherName] = useState("");
+  const [TeacherName, setTeacherName] = useState('');
   const [MaximumSlots, setMaximumSlots] = useState(0);
   const [selectedClassesTeachers, setSelectedClassesTeachers] = useState([]);
   const [selectedCoursesTeachers, setSelectedCoursesTeachers] = useState([]);
   const [prevselectedCoursesTeachers, setprevSelectedCoursesTeachers] =
     useState(null); // to check if the course changes in ADD TEACHERS
   const [rooms, setRooms] = useState(null);
-  
+
   // function responsible for opening and closing modal
   const toggleModal = () => {
     setModal(!modal);
   };
-
 
   const [assignClassesForTeachers, setassignClassesForTeachers] = useState([]);
   if (selectedCoursesTeachers !== prevselectedCoursesTeachers) {
@@ -84,7 +83,7 @@ const Add = ({ parentName }) => {
     id: course._id,
     value: `${course.code}`,
     label: `${course.code}`,
-    credit_hours: ` ${course.credit_hours}`
+    credit_hours: ` ${course.credit_hours}`,
   }));
 
   const handleProgramNameChange = (event) => {
@@ -102,8 +101,8 @@ const Add = ({ parentName }) => {
   const handleClassAddition = async (e) => {
     e.preventDefault();
     toggleModal();
-    const url = "http://localhost:5000/api/timetables/class/add";
-    const token = sessionStorage.getItem("userToken");
+    const url = 'https://automita-backend.vercel.app/api/timetables/class/add';
+    const token = sessionStorage.getItem('userToken');
     if (token) {
       let id = JSON.parse(token);
       try {
@@ -115,19 +114,19 @@ const Add = ({ parentName }) => {
           section: section.toUpperCase(),
         });
         if (res.data) {
-          toast.success("Class Added Successfully");
-          setProgramName("");
-          setSection("");
-          setSemester("1");
-          setSession("Fall");
+          toast.success('Class Added Successfully');
+          setProgramName('');
+          setSection('');
+          setSemester('1');
+          setSession('Fall');
           setTimeout(() => {
             window.location.reload();
           }, 500);
         } else {
-          toast.error("Class Added Error");
+          toast.error('Class Added Error');
         }
       } catch (err) {
-        toast.error("Class Added Error");
+        toast.error('Class Added Error');
         console.log(err);
       }
     } else {
@@ -152,8 +151,8 @@ const Add = ({ parentName }) => {
   const handleCourseAddition = async (e) => {
     e.preventDefault();
     toggleModal();
-    const url = "http://localhost:5000/api/timetables/course/add";
-    const token = sessionStorage.getItem("userToken");
+    const url = 'https://automita-backend.vercel.app/api/timetables/course/add';
+    const token = sessionStorage.getItem('userToken');
     if (token) {
       let id = JSON.parse(token);
       try {
@@ -168,19 +167,19 @@ const Add = ({ parentName }) => {
           class_assigned: classIDs,
         });
         if (res.data) {
-          toast.success("Course Added Successfully");
-          setCourseCode("");
-          setCourseName("");
-          setCreditHours("");
+          toast.success('Course Added Successfully');
+          setCourseCode('');
+          setCourseName('');
+          setCreditHours('');
           setSelectedClasses([]);
           setTimeout(() => {
             window.location.reload();
           }, 500);
         } else {
-          toast.error("Course Added Error");
+          toast.error('Course Added Error');
         }
       } catch (err) {
-        toast.error("Course Added Error");
+        toast.error('Course Added Error');
         console.log(err);
       }
     } else {
@@ -204,13 +203,13 @@ const Add = ({ parentName }) => {
     toggleModal();
     if (
       TeacherName != null &&
-      TeacherName != "" &&
+      TeacherName != '' &&
       selectedClassesTeachers != null &&
       selectedClassesTeachers != [] &&
       selectedCoursesTeachers !== null
     ) {
-      const url = "http://localhost:5000/api/timetables/teacher/add";
-      const token = sessionStorage.getItem("userToken");
+      const url = 'https://automita-backend.vercel.app/api/timetables/teacher/add';
+      const token = sessionStorage.getItem('userToken');
       if (token) {
         let id = JSON.parse(token);
         try {
@@ -224,25 +223,25 @@ const Add = ({ parentName }) => {
             class_assigned: classIDs,
           });
           if (res.data) {
-            toast.success("Teacher Added Successfully");
-            setTeacherName("");
+            toast.success('Teacher Added Successfully');
+            setTeacherName('');
             setSelectedCoursesTeachers([]);
             setSelectedClassesTeachers([]);
             setTimeout(() => {
               window.location.reload();
             }, 500);
           } else {
-            toast.error("Course Added Error");
+            toast.error('Course Added Error');
           }
         } catch (err) {
-          toast.error("Course Added Error");
+          toast.error('Course Added Error');
           console.log(err);
         }
       } else {
         return null;
       }
     } else {
-      toast.error("ADD ALL FIELDS!!");
+      toast.error('ADD ALL FIELDS!!');
     }
   };
   const handleRoomsChange = (e) => {
@@ -252,30 +251,30 @@ const Add = ({ parentName }) => {
     e.preventDefault();
     toggleModal();
     if (rooms != null) {
-      const url = "http://localhost:5000/api/timetables/room/add";
-      const token = sessionStorage.getItem("userToken");
+      const url = 'https://automita-backend.vercel.app/api/timetables/room/add';
+      const token = sessionStorage.getItem('userToken');
       if (token) {
         let id = JSON.parse(token);
         try {
           const res = await axios.post(url, { id: id, rooms: rooms });
           if (res.data) {
-            toast.success("Room Added Successfully");
+            toast.success('Room Added Successfully');
             setRooms(null);
             setTimeout(() => {
               window.location.reload();
             }, 500);
           } else {
-            toast.error("Room Added Error");
+            toast.error('Room Added Error');
           }
         } catch (err) {
-          toast.error("Room Added Error");
+          toast.error('Room Added Error');
           console.log(err);
         }
       } else {
         return null;
       }
     } else {
-      toast.error("ADD ALL FIELDS!!");
+      toast.error('ADD ALL FIELDS!!');
     }
   };
 
@@ -292,7 +291,7 @@ const Add = ({ parentName }) => {
       <GenerateTable parentName={parentName} />
 
       {/* will only render for add program page */}
-      {modal && parentName == "addClass" && (
+      {modal && parentName == 'addClass' && (
         <div className="add-form-container">
           <div className="main-form">
             <form className="add-form" onSubmit={handleClassAddition}>
@@ -357,7 +356,7 @@ const Add = ({ parentName }) => {
       )}
 
       {/* will only render for add course page */}
-      {modal && parentName == "addCourse" && (
+      {modal && parentName == 'addCourse' && (
         <div className="add-form-container">
           <div className="main-form">
             <form className="add-form" onSubmit={handleCourseAddition}>
@@ -417,7 +416,7 @@ const Add = ({ parentName }) => {
       )}
 
       {/* will only render for add teacher page */}
-      {modal && parentName == "addTeacher" && (
+      {modal && parentName == 'addTeacher' && (
         <div className="add-form-container">
           <div className="main-form">
             <form className="add-form" onSubmit={hanldeTeacherAddition}>
@@ -465,13 +464,15 @@ const Add = ({ parentName }) => {
                       isSearchable
                       value={selectedClassesTeachers}
                       onChange={handleClassesSelectChangeForTeachers}
-                      isDisabled={MaximumSlots && MaximumSlots >0 &&selectedClassesTeachers.length >= MaximumSlots}
+                      isDisabled={
+                        MaximumSlots &&
+                        MaximumSlots > 0 &&
+                        selectedClassesTeachers.length >= MaximumSlots
+                      }
                     />
                   </div>
                 </>
-              ) : (
-                null
-              )}
+              ) : null}
               <div className="add-form-row">
                 <button onClick={toggleModal}>Close</button>
                 <button type="submit">Submit</button>
@@ -482,7 +483,7 @@ const Add = ({ parentName }) => {
       )}
 
       {/* will only render for add room page */}
-      {modal && parentName == "addRoom" && (
+      {modal && parentName == 'addRoom' && (
         <div className="add-form-container">
           <div className="main-form">
             <form className="add-form" onSubmit={handleRoomsAddition}>
@@ -507,7 +508,7 @@ const Add = ({ parentName }) => {
       )}
 
       {/* will only render for add program page */}
-      {modal && parentName == "timeSlot" && (
+      {modal && parentName == 'timeSlot' && (
         <div className="add-form-container">
           <div className="main-form">
             <form className="add-form">
