@@ -154,7 +154,7 @@ const Login = () => {
         <section className="login-section">
           <div className="container">
             <form className="form">
-              <img src={logo} className="logo" alt='Logo' width={auto} height={auto}/>
+              <img src={logo} className="logo" alt="Logo" width="auto" height="auto"/>
               <p className="alert">{auth}</p>
               {isLoading && <Loading />}
               <div className="form-row">
